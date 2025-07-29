@@ -5,4 +5,4 @@ result = inputMessage.toUpperCase() === "RU" ? "Привет" :
          inputMessage.toUpperCase() === "DE" ? "Gutten tag!" :
          "Selected language is not avaliable!"
 
-alert(result)
+console.log(result)
