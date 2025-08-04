@@ -210,38 +210,44 @@ const parceResult = ['10.02.2022', 'тест', '11/12/2023', '00/13/2022', '41/1
 
 ## Алгоритм Луна для валидации карт
 
-В файле `HomeWorks/JS/12-luna/app.js` реализован алгоритм Луна для проверки корректности номеров банковских карт.
+В файле `HomeWorks/JS/12-luna/app.js` реализована функция `luna` для проверки корректности номеров банковских карт.
 
 ### Добавленная функциональность:
+- Функция `luna(cardNumber)` с параметром номера карты
 - Удаление разделителей из номера карты
 - Умножение каждой второй цифры на 2 (с позиции 0)
 - Вычитание 9 из результатов >= 9
 - Суммирование всех цифр методом `reduce()`
-- Проверка кратности суммы 10
+- Возврат результата проверки кратности суммы 10
 
 ### Тестовый номер карты:
 ```javascript
-let cardNumber = "4561-2612-1234-5467";
+let cardNumber = "4561-2612-1234-5464";
 ```
 
-### Алгоритм обработки:
+### Функция валидации:
 ```javascript
-// Удаление дефисов и преобразование в массив
-cardNumber = cardNumber.replaceAll("-", "").split('');
+const luna = (cardNumber) => {
+  cardNumber = cardNumber.replaceAll("-", "");
+  cardNumber = cardNumber.split('');
 
-// Обработка каждой второй цифры
-for (let i = 0; i < cardNumber.length; i += 2) {
-  let firstStep = parseInt(cardNumber[i]) * 2;
-  if (firstStep >= 9) {
-    firstStep = firstStep - 9;
+  for (let i = 0; i < cardNumber.length; i += 2) {
+    let firstStep = parseInt(cardNumber[i]) * 2;
+    
+    if (firstStep >= 9) {
+      firstStep = firstStep - 9;
+    }
+    
+    cardNumber[i] = firstStep.toString();
   }
-  cardNumber[i] = firstStep.toString();
-}
 
-// Суммирование и проверка
-const sumNumbers = cardNumber.reduce((acc, value) => acc + Number(value), 0);
-const result = sumNumbers % 10 == 0;
+  const sumNumbers = cardNumber.reduce((acc, value) => {
+    return acc = Number(acc) + Number(value);
+  })
+
+  return sumNumbers % 10 == 0
+}
 ```
 
 ### Результат:
-Алгоритм возвращает `true` для валидных номеров карт и `false` для невалидных по алгоритму Луна.
+Функция `luna()` возвращает `true` для валидных номеров карт и `false` для невалидных по алгоритму Луна.
